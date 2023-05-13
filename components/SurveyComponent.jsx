@@ -1,3 +1,4 @@
+'use client'
 import React from "react";
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
@@ -93,17 +94,17 @@ function SurveyPdfComponent() {
 
 export default SurveyPdfComponent;
 
-function SurveyComponent() {
-    const survey = new Model(json);
-    survey.onComplete.add((sender, options) => {
-        console.log(JSON.stringify(sender.data, null, 3));
-    });
-    survey.onCurrentPageChanged.add((sender, options) => {
-        console.log(JSON.stringify(sender.data, null, 3));
-    });
+// function SurveyComponent() {
+//     const survey = new Model(json);
+//     survey.onComplete.add((sender, options) => {
+//         console.log(JSON.stringify(sender.data, null, 3));
+//     });
+//     survey.onCurrentPageChanged.add((sender, options) => {
+//         console.log(JSON.stringify(sender.data, null, 3));
+//     });
 
-    // survey.navigateToUrl = window.location.origin
-    return (<Survey model={survey} />);
-}
+//     // survey.navigateToUrl = window.location.origin
+//     return (<Survey model={survey} />);
+// }
 
 // export default SurveyComponent;

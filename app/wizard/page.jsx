@@ -1,11 +1,17 @@
 'use client'
-import SurveyComponent from "./SurveyComponent";
+// import SurveyComponent from "@/components/SurveyComponent";
 import "./styles.css";
 
+import dynamic from 'next/dynamic'
+
 const Survey = () => {
+  const SurveyComponent = dynamic(
+    () => import('@/components/SurveyComponent'),
+    { ssr: false }
+  )
   return (
-      <div id="float-parent" class="grid-container">
-        <div id="surveyElement" class="grid-child purple">
+      <div id="float-parent" className="grid-container">
+        <div id="surveyElement" className="grid-child purple">
           <SurveyComponent />
         </div>
         <div id="pdf-preview" class="grid-child green"></div>
