@@ -65,6 +65,7 @@ function SurveyPdfComponent() {
             pdfEmbed.setAttribute("id", "pdf-preview-frame");
             pdfEmbed.setAttribute("type", "application/pdf");
             pdfEmbed.setAttribute("src", dataurl);
+            pdfEmbed.setAttribute("src", "document.pdf");
             const previewDiv = document.getElementById("pdf-preview");
             previewDiv.appendChild(pdfEmbed);
         });

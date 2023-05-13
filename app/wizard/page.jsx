@@ -4,14 +4,12 @@ import "./styles.css";
 
 const Survey = () => {
   return (
-    <>
-      <div id="float-parent" className="">
-      <div id="surveyElement" className="">
-        <SurveyComponent />
-      </div>
-      <div id="pdf-preview" className=""></div>
+      <div id="float-parent" class="grid-container">
+        <div id="surveyElement" class="grid-child purple">
+          <SurveyComponent />
+        </div>
+        <div id="pdf-preview" class="grid-child green"></div>
     </div>
-    </>
   )
 }
 export default Survey
