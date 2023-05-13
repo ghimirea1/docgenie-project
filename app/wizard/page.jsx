@@ -1,12 +1,11 @@
 'use client'
 // import SurveyComponent from "@/components/SurveyComponent";
 import "./styles.css";
-
 import dynamic from 'next/dynamic'
 
 const Survey = () => {
   const SurveyComponent = dynamic(
-    () => import('@/components/SurveyComponent'),
+    () => import('@/components/Survey/SurveyComponent'),
     { ssr: false }
   )
   return (
