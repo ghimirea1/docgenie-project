@@ -33,7 +33,7 @@ const inputs = [{ a: 'a1', b: 'b1', c: 'c1' }];
 
 
 function FormComp() {
-  let uiRef = useRef<HTMLDivElement | null>(null);
+  const uiRef = useRef<HTMLDivElement | null>(null);
   const ui = useRef<Form | Viewer | null>(null);
   const [mode, setMode] = useState<Mode>("form");
   useEffect(() => {
