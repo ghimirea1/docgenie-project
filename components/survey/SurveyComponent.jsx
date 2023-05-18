@@ -1,5 +1,5 @@
 'use client'
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import $ from "jquery";
@@ -9,15 +9,51 @@ import "jquery-ui-dist/jquery-ui.css";
 import "survey-core/defaultV2.min.css";
 import "./index.css";
 import { json } from "./json";
+// import { modifyPDF } from "@/components/PDFViewer.js"
 
 window["$"] = window["jQuery"] = $;
 require("jquery-ui-dist/jquery-ui.js");
 
 jqueryuidatepicker(SurveyCore);
 
+import { degrees, PDFDocument, rgb, StandardFonts } from 'pdf-lib';;
+async function modifyPdf (params) {
+    // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
+    const url ="google-search-engine-warrant.pdf"
+    const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
+  
+    const pdfDoc = await PDFDocument.load(existingPdfBytes)
+    const helveticaFont = await pdfDoc.embedFont(StandardFonts.Helvetica)
+  
+    const pages = pdfDoc.getPages()
+    const firstPage = pages[0]
+    const { width, height } = firstPage.getSize()
+
+    const form = pdfDoc.getForm()
+    const fields = form.getFields()
+    fields.forEach(field => {
+        const type = field.constructor.name
+        const name = field.getName()
+        const text = field.getText()
+
+        for (const [key, value] of Object.entries(params.data)) {
+            if (key == name || key == text)
+            {
+                field.setText (value)
+            }
+        }
+        })
+
+    const pdfBytes = await pdfDoc.save();
+    const bytes  = new Uint8Array( pdfBytes ); 
+    const blob   = new Blob( [ bytes ], { type: "application/pdf" } );
+    const docUrl = URL.createObjectURL( blob );
+    return docUrl;
+}
 
 import { SurveyPDF } from "survey-pdf";
 function createSurveyPdfModel(surveyModel) {
+
     let pdfWidth = !!surveyModel && surveyModel.pdfWidth ? surveyModel.pdfWidth : 210;
     let pdfHeight = !!surveyModel && surveyModel.pdfHeight ? surveyModel.pdfHeight : 297;
     let options = {
@@ -42,7 +78,7 @@ function createSurveyPdfModel(surveyModel) {
 function saveSurveyToPdf(filename, surveyModel) {
     createSurveyPdfModel(surveyModel).save(filename);
 }
-function SurveyPdfComponent() {
+async function SurveyPdfComponent() {
     const survey = new Model(json);
     function saveSurveyToFile() {
         saveSurveyToPdf("surveyResult.pdf", survey);
@@ -58,15 +94,16 @@ function SurveyPdfComponent() {
         });
     }
     function previewPdf() {
+        const fields = [];
         const surveyPDF = createSurveyPdfModel(survey);
         const oldFrame = document.getElementById("pdf-preview-frame");
         if (oldFrame) oldFrame.parentNode.removeChild(oldFrame);
-        surveyPDF.raw("dataurlstring").then(function(dataurl) {
+        surveyPDF.raw("dataurlstring").then(async function(dataurl) {
             const pdfEmbed = document.createElement("embed");
+            const pdfdata = await modifyPdf (survey);
             pdfEmbed.setAttribute("id", "pdf-preview-frame");
             pdfEmbed.setAttribute("type", "application/pdf");
-            pdfEmbed.setAttribute("src", dataurl);
-            pdfEmbed.setAttribute("src", "document.pdf");
+            pdfEmbed.setAttribute("src", pdfdata);
             const previewDiv = document.getElementById("pdf-preview");
             previewDiv.appendChild(pdfEmbed);
         });
@@ -93,18 +130,3 @@ function SurveyPdfComponent() {
 }
 
 export default SurveyPdfComponent;
-
-// function SurveyComponent() {
-//     const survey = new Model(json);
-//     survey.onComplete.add((sender, options) => {
-//         console.log(JSON.stringify(sender.data, null, 3));
-//     });
-//     survey.onCurrentPageChanged.add((sender, options) => {
-//         console.log(JSON.stringify(sender.data, null, 3));
-//     });
-
-//     // survey.navigateToUrl = window.location.origin
-//     return (<Survey model={survey} />);
-// }
-
-// export default SurveyComponent;
