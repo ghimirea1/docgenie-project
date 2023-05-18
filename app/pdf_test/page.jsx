@@ -10,7 +10,8 @@ const LoadPDF = () => {
     }, []);
     
     async function modifyPdf() {
-        const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
+        // const url = 'https://pdf-lib.js.org/assets/with_update_sections.pdf'
+        const url ="google-search-engine-warrant.pdf"
         const existingPdfBytes = await fetch(url).then(res => res.arrayBuffer())
       
         const pdfDoc = await PDFDocument.load(existingPdfBytes)
@@ -33,9 +34,10 @@ const LoadPDF = () => {
         fields.forEach(field => {
             const type = field.constructor.name
             const name = field.getName()
-            console.log("Type: ", type, "Name: ",name)
+            const text = field.getText()
+            console.log("Type: ", type, "Name: ", name, "Text: ", text)
             })
-  
+
         const pdfBytes = await pdfDoc.save();
         const bytes  = new Uint8Array( pdfBytes ); 
         const blob   = new Blob( [ bytes ], { type: "application/pdf" } );
