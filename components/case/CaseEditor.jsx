@@ -94,7 +94,7 @@ export default function CaseEditor({
           Preview
         </div>
         <h1 className="note-title">{title}</h1>
-        <NotePreview body={body} />
+        <CasePreview body={body} />
       </div>
     </div>
   );
