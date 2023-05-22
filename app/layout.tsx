@@ -22,12 +22,12 @@ export const metadata = {
 };
 
 /* eslint-disable @next/next/no-img-element */
-import NoteList from "@/components/case/CaseList";
-import NoteListSkeleton from "@/components/case/CaseListSkeleton";
+import CaseList from "@/components/case/CaseList";
+import CaseListSkeleton from "@/components/case/CaseListSkeleton";
 import EditButton from "@/components/case/EditButton";
 import "./globals.css";
 
-const NoteListComponent = NoteList as unknown as () => JSX.Element;
+const CaseListComponent = CaseList as unknown as () => JSX.Element;
 
 export default async function RootLayout({
   children }: { 
@@ -37,12 +37,16 @@ export default async function RootLayout({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="description" content="A notes app using Next.js 13" />
+        <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Next13 Notes</title>
+        <title>🚀🚀🚀</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
+        <Suspense fallback="...">
+          {/* @ts-expect-error Server Component */}
+          <Nav />
+        </Suspense>
         <div className="main">
           <section className="col sidebar">
             <section className="sidebar-header">
@@ -60,8 +64,8 @@ export default async function RootLayout({
               <EditButton>Create Case</EditButton>
             </section>
             <nav>
-              <Suspense fallback={<NoteListSkeleton />}>
-                <NoteListComponent />
+              <Suspense fallback={<CaseListSkeleton />}>
+                <CaseListComponent />
               </Suspense>
             </nav>
           </section>
