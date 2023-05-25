@@ -155,7 +155,7 @@ async function SurveyComponent ({ id, data }) {
         <Survey model={survey} />
       </div>
       <div className="note-editor-preview">
-        // TODO: Live preview
+        {/* TODO: Live preview */}
         <div className="label label--preview" role="status">
           Preview
         </div>
