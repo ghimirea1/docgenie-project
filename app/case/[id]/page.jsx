@@ -1,5 +1,4 @@
 import { format } from "date-fns";
-import { Case } from "models/case";
 import NotePreview from "@/components/case/CasePreview";
 import DeleteButton from "@/components/case/DeleteButton";
 import EditButton from "@/components/case/EditButton";
