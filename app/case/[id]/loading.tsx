@@ -1,5 +1,5 @@
-import NoteSkeleton from "@/components/case/CaseSkeleton";
+import CaseSkeleton from "@/components/case/CaseSkeleton";
 
 export default function Loading() {
-  return <NoteSkeleton />;
+  return <CaseSkeleton />;
 }
