@@ -1,11 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { startTransition, useState } from "react";
-import { Case } from "models/note";
 import { useRouter } from "next/navigation";
 
 import CasePreview from "./CasePreview";
-import prisma from "@/lib/prisma"
 
 const BASE_API_URI = "https://next13-notes-app-api-production.up.railway.app";
 
@@ -26,15 +24,18 @@ export default function CaseEditor({
     if (isTitleOrBodyEmpty) return;
 
     try {
-      const updatedCase = await prisma.case.create({
-        data: {
-            // id: 3,
-            title: title,
-            body: body,
-            createdAt: createdAt ?? new Date().getTime(),
-            updatedAt: new Date().getTime(),
-          },
-        });  
+      const res = await fetch('/api/case', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: parseInt (caseId),
+          title: title,
+          body: body,
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
 
       startTransition(() => {
         router.replace("/");
@@ -76,7 +77,7 @@ export default function CaseEditor({
         <div className="note-editor-menu" role="menubar">
           <button
             className="note-editor-done"
-            disabled={Boolean(isSaving) || isTitleOrBodyEmpty}
+            disabled={isTitleOrBodyEmpty}
             onClick={() => handleSave()}
             role="menuitem"
           >
