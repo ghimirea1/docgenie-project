@@ -7,7 +7,6 @@ import { pdfExporter } from "quill-to-pdf";
 import { downloadObjectAsJson } from "./download";
 
 const QuillEditor = ({initialContent=""}) => {
-  console.log ("init", initialContent);
   const [value, setValue] = useState(initialContent);
   const editorRef = useRef(null);
 
