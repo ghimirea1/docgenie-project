@@ -8,11 +8,10 @@ import prisma from "@/lib/prisma"
 
 const fetchSingleCase = async (id) => {
   const res = await prisma.case.findFirst({
-    where: { id: id },
+    where: { id: parseInt (id) },
   });
 
-  const cases = (await res);
-  return cases;
+  return res;
 };
 
 const CasePage = async ({ params: { id } }) => {
