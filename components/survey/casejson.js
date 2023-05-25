@@ -13,7 +13,7 @@ export const json = {
        },
        {
         "type": "text",
-        "name": "[[CAUSE_NUMBER]]",
+        "name": "CAUSE_NUMBER",
         "title": "Case Number",
         "hideNumber": true
        },
@@ -39,13 +39,13 @@ export const json = {
        },
        {
          "type": "text",
-         "name": "[[STATE]]",
+         "name": "{STATE}",
          "title": "State",
          "hideNumber": true
        },
        {
          "type": "text",
-         "name": "[[COUNTY]]",
+         "name": "{COUNTY}",
          "title": "County",
          "hideNumber": true
        },
@@ -77,7 +77,7 @@ export const json = {
       "elements": [
        {
         "type": "text",
-        "name": "[[CASE_AGENT_NAME]]",
+        "name": "{CASE_AGENT_NAME}",
         "title": "Officer Full Legal Name",
         "hideNumber": true
        },
