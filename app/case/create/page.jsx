@@ -1,5 +1,4 @@
 'use client'
-// import SurveyComponent from "@/components/survey/SurveyComponent";
 import "../../globals.css"
 import dynamic from 'next/dynamic'
 
