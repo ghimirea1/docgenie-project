@@ -89,10 +89,9 @@ const fetchTemplates = async () => {
     }
   }
 
-async function SurveyComponent ({ data }) {
+async function SurveyComponent ({ id, data }) {
     const templates = await fetchTemplates();
-
-    const survey = new Model(json);
+    const [survey, setSurvey] = useState(new Model(json));
     
     if (data) {
         survey.data = data;
@@ -125,7 +124,6 @@ async function SurveyComponent ({ data }) {
     // survey.addNavigationItem({
     //     id: "survey_save_via_blob", title: "Save via Blob", action: savePdfViaBlob
     // });
-    
     survey.addNavigationItem({
         id: "survey_pdf_preview", title: "Preview PDF", action: previewPdf
     });
@@ -141,13 +139,13 @@ async function SurveyComponent ({ data }) {
         // }
     });
     survey.onCurrentPageChanged.add((sender, options) => {
-        console.log(JSON.stringify(sender.data, null, 3));
+      console.log(JSON.stringify(sender.data, null, 3));
     });
     survey.onValueChanged.add((sender, options) => {
-        console.log (survey.data);
-        if (isPreviewed) { 
-            previewPdf();
-        }
+      console.log(JSON.stringify(sender.data, null, 3));
+      if (isPreviewed) { 
+        previewPdf();
+      }
     });
 
     return (<Survey model={survey} />);
