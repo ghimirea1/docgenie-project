@@ -9,7 +9,8 @@ export default async function Survey () {
       <div id="float-parent" className="grid-container">
           <div id="surveyElement" className="grid-child">
             <SurveyComponent 
-            Templates={null} />
+            id={null}
+            data={null} />
           </div>
             <div id="pdf-preview" className="grid-child">
         </div>
