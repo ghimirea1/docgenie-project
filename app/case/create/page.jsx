@@ -7,6 +7,7 @@ const SurveyComponent = dynamic(() => import('@/components/survey/CaseCreationSu
 export default async function Survey () { 
   return (
     <SurveyComponent 
+    id={null}
     data={null} />
   )
 }
