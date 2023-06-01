@@ -8,8 +8,8 @@ import * as SurveyCore from "survey-core";
 import { jqueryuidatepicker } from "surveyjs-widgets";
 import "jquery-ui-dist/jquery-ui.css";
 import "survey-core/defaultV2.min.css";
-import "./index.css";
-import { json } from "./casejson";
+// import "./index.css";
+import { json } from "./casejson2";
 import dynamic from 'next/dynamic'
 
 window["$"] = window["jQuery"] = $;
@@ -91,7 +91,7 @@ const fetchTemplates = async () => {
 
 async function SurveyComponent ({ id, data }) {
     const templates = await fetchTemplates();
-    const [survey, setSurvey] = useState(new Model(json));
+    const survey = new Model(json);
     
     if (data) {
         survey.data = data;
@@ -129,14 +129,13 @@ async function SurveyComponent ({ id, data }) {
     });
 
     survey.onComplete.add((sender, options) => {
-        console.log(JSON.stringify(sender.data, null, 3));
-        
-        // if (data) {
-        //     updateCase (data.id, sender.data, router);
-        // }
-        // else {
-        //     saveCase (sender.data, router);
-        // }
+      console.log(JSON.stringify(sender.data, null, 3));
+      if (data) {
+        updateCase (id, sender.data, router);
+      }
+      else {
+        saveCase (sender.data, router);
+      }
     });
     survey.onCurrentPageChanged.add((sender, options) => {
       console.log(JSON.stringify(sender.data, null, 3));
