@@ -182,7 +182,7 @@ function Template (survey, name, templates) {
         }
     }
 
-    str = str.replace(/{\w+}/g, function(all) {
+    str = str.replace(/{[\w\s]+}/ig, function(all) {
         return fields[all] || all;
     });
 
