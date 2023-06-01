@@ -13,7 +13,7 @@ import "@/app/globals.css";
 // };
 
 const CasePreview = ({ jsonData }) => {
-  const fieldOrder = ['Case Number', 'Officer Name', 'Case Type', 'Case Status', 'Case Description', 'State', 'County', 'Location']; // Define the desired order of fields
+  const fieldOrder = ['Case Number', 'Officer Name', 'Officer Title', 'Agency', 'Case Type', 'Case Status', 'Case Description', 'State', 'County', 'Location']; // Define the desired order of fields
 
   return (
     <div className="json-preview">
