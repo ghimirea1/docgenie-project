@@ -11,6 +11,7 @@ import "survey-core/defaultV2.min.css";
 // import "./index.css";
 import { json } from "./casejson2";
 import dynamic from 'next/dynamic'
+import { useRouter } from "next/navigation";
 
 window["$"] = window["jQuery"] = $;
 require("jquery-ui-dist/jquery-ui.js");
@@ -91,6 +92,7 @@ const fetchTemplates = async () => {
 
 async function SurveyComponent ({ id, data }) {
     const templates = await fetchTemplates();
+    const router = useRouter();
     const survey = new Model(json);
     
     if (data) {
