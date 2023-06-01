@@ -90,9 +90,8 @@ const fetchTemplates = async () => {
     }
   }
 
-async function SurveyComponent ({ id, data }) {
-    const templates = await fetchTemplates();
-    const router = useRouter();
+async function SurveyComponent ({ id, data, router }) {
+    const templates = await fetchTemplates();    
     const survey = new Model(json);
     
     if (data) {
