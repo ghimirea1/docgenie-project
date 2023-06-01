@@ -7,7 +7,7 @@ const SurveyComponent = dynamic(() => import('@/components/survey/WarrantSurveyC
 export default async function Survey () { 
   return (
       <div id="float-parent" className="grid-container">
-          <div id="surveyElement" className="grid-child">
+          <div id="survey-element" className="grid-child">
             <SurveyComponent 
             id={null}
             data={null} />
