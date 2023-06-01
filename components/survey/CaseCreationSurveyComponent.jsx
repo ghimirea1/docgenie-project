@@ -13,7 +13,6 @@ import { json } from "./casejson2";
 import CasePreview from "@/components/case/CasePreview";
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/navigation";
-import App from "next/app";
 
 window["$"] = window["jQuery"] = $;
 require("jquery-ui-dist/jquery-ui.js");
