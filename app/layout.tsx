@@ -39,26 +39,28 @@ export default async function RootLayout({
         <meta charSet="utf-8" />
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>🚀🚀🚀</title>
+        <title>DocGenie</title>
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
+      <div className="navbar">
         <Suspense fallback="...">
           {/* @ts-expect-error Server Component */}
           <Nav />
         </Suspense>
-        <div className="main">
+        </div>
+        <div className="containerr">
           <section className="col sidebar">
             <section className="sidebar-header">
-              <img
+              {/* <img
                 className="logo"
                 src="/icons/svg/logo.svg"
                 width="22px"
                 height="20px"
                 alt=""
                 role="presentation"
-              />
-              <strong>Cases</strong>
+              /> */}
+              <strong>My Cases</strong>
             </section>
             <section className="sidebar-menu" role="menubar">
               <EditButton>Create Case</EditButton>
@@ -69,8 +71,8 @@ export default async function RootLayout({
               </Suspense>
             </nav>
           </section>
-          <section className="col">{children}</section>
-        </div>
+          <section className="content">{children}</section>
+          </div>
       </body>
     </html>
   );
