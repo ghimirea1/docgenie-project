@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, startTransition } from "react";
 import ReactDOM from "react-dom/client" 
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
@@ -151,7 +151,17 @@ async function SurveyComponent ({ id, data, router }) {
     return (<Survey model={survey} />);
 }
 
-export default SurveyComponent;
+function _App ({ id, data }) {
+  const router = useRouter();
+
+  return (
+    <SurveyComp id={id} data={data} router={router} />
+  )
+}
+
+const SurveyComp = React.memo (SurveyComponent);
+
+export default _App;
 
 function fetchTemplate(name, templates) {
     if (!templates) {
