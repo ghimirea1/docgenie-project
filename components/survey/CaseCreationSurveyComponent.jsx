@@ -116,7 +116,10 @@ const SurveyComponent = ({ id, data, setState }) => {
     survey.navigationBar.getActionById("sv-nav-complete").visible = true;
 
     survey.addNavigationItem({
-      id: "survey-generate-warrant", title: "Generate Warrant", action:()=>{}
+      id: "survey-generate-warrant", title: "Generate Warrant", action:()=>{
+        router.replace(`/case/warrant/create/${id}`);
+        router.refresh();
+      }
     });
 
     survey.onComplete.add((sender, options) => {
@@ -156,7 +159,7 @@ function _App ({ id, data }) {
           Preview
         </div>
         <h1 className="note-title">{state.name}</h1>
-        <CasePreview body={state.description} />
+        <CasePreview jsonData={state} />
       </div>
     </div>
   );
