@@ -2,7 +2,6 @@ import { format } from "date-fns";
 import CasePreview from "@/components/case/CasePreview";
 import DeleteButton from "@/components/case/DeleteButton";
 import EditButton from "@/components/case/EditButton";
-
 import prisma from "@/lib/prisma"
 
 const fetchSingleCase = async (id) => {
