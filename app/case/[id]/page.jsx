@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import NotePreview from "@/components/case/CasePreview";
+import CasePreview from "@/components/case/CasePreview";
 import DeleteButton from "@/components/case/DeleteButton";
 import EditButton from "@/components/case/EditButton";
 
@@ -14,7 +14,7 @@ const fetchSingleCase = async (id) => {
 };
 
 const CasePage = async ({ params: { id } }) => {
-  const { id: caseId, title, body, created_at } = await fetchSingleCase(id);
+  const { id: caseId, title, body, created_at, data } = await fetchSingleCase(id);
 
   const updatedAtDate = new Date(created_at);
 
@@ -33,7 +33,7 @@ const CasePage = async ({ params: { id } }) => {
           </div>
           <h1 className="note-title">{title}</h1>
         </div>
-        <NotePreview body={body} />
+        <CasePreview jsonData={data} />
       </div>
     </div>
   );
