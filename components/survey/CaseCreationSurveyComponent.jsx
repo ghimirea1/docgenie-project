@@ -144,7 +144,13 @@ const SurveyComponent = ({ id, data, setState }) => {
 }
 
 function _App ({ id, data }) {
+  const [isComponentVisible, setComponentVisible] = useState(true);
   const [state, setState] = useState("");
+
+  const toggleComponentVisibility = () => {
+    setComponentVisible(!isComponentVisible);
+  };
+
   return (
     <div className="note-editor">
       <div id="survey-element">
@@ -152,14 +158,19 @@ function _App ({ id, data }) {
       id={id}
       data={data}
       setState={setState} />
-      </div>
-    <div className="note-editor-preview">
+    </div>
+    {isComponentVisible && (
+      <div className="note-editor-preview">
         <div className="label label--preview" role="status">
           Preview
         </div>
         <h1 className="note-title">{state.name}</h1>
         <CasePreview jsonData={state} />
       </div>
+    )}
+      <button className="toggle-button" onClick={toggleComponentVisibility}>
+        {isComponentVisible ? 'Hide Preview' : 'Show Preview'}
+      </button>
     </div>
   );
 }
