@@ -7,8 +7,8 @@ import { pdfExporter } from "quill-to-pdf";
 import { downloadObjectAsJson } from "./download";
 import "@/app/globals.css"
 
-const QuillEditor = ({initialContent=""}) => {
-  const [value, setValue] = useState(initialContent);
+const QuillEditor = ({initialContent="", value, setValue }) => {
+  // const [value, setValue] = useState(initialContent);
   const editorRef = useRef(null);
 
   const exportDocument = () => {
