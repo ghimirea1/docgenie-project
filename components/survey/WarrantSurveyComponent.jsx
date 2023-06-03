@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, startTransition } from "react";
+import React, { useState, useEffect, startTransition, useRef } from "react";
 import ReactDOM from "react-dom/client" 
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
@@ -90,43 +90,31 @@ const fetchTemplates = async () => {
     }
   }
 
-async function SurveyComponent ({ id, data, router }) {
-    const templates = await fetchTemplates();    
+const SurveyComponent = ({ id, data, templates, setState }) => {
+    // const templates = await fetchTemplates();    
+    const router = useRouter();
     const survey = new Model(json);
     
+    // Avoid rehydration conflict
+    // https://nextjs.org/docs/messages/react-hydration-error
+    const [hasMounted, setHasMounted] = useState(false);
+    useEffect(() => {
+      setHasMounted(true)
+      setState(data);
+    }, []);
+
+    if (!hasMounted) {
+      return null;
+  }
+
     if (data) {
         survey.data = data;
     }
 
-    let isPreviewed = false;
-    function previewPdf () {
-        const oldFrame = document.getElementById("pdf-preview-frame");
-        if (oldFrame) oldFrame.parentNode.removeChild(oldFrame);
-        const previewDiv = document.getElementById("pdf-preview");
-        previewDiv.innerHTML = Template (survey, "Google");
-
-        const data = Template (survey, "Google", templates);
-
-        // const element = <DraftJsEditor initialContent={data} />;
-        const element = <QuillEditor initialContent={data} />;
-        
-        const root = ReactDOM.createRoot(
-            document.getElementById('pdf-preview')
-        );
-        root.render(element);
-        isPreviewed = true;
-    }
-
     survey.navigationBar.getActionById("sv-nav-complete").visible = true;
-    
-    // survey.addNavigationItem({
-    //     id: "survey_save_as_file", title: "Save as PDF", action: saveSurveyToFile
-    // });
-    // survey.addNavigationItem({
-    //     id: "survey_save_via_blob", title: "Save via Blob", action: savePdfViaBlob
-    // });
+ 
     survey.addNavigationItem({
-        id: "survey_pdf_preview", title: "Preview PDF", action: previewPdf
+        id: "survey_pdf_preview", title: "Preview PDF", action: () => {}
     });
 
     survey.onComplete.add((sender, options) => {
@@ -143,23 +131,66 @@ async function SurveyComponent ({ id, data, router }) {
     });
     survey.onValueChanged.add((sender, options) => {
       console.log(JSON.stringify(sender.data, null, 3));
-      if (isPreviewed) { 
-        previewPdf();
-      }
+      setState(sender.data);
     });
 
-    return (<Survey model={survey} />);
+    return (
+    <Survey model={survey} />
+    );
 }
 
-function _App ({ id, data }) {
-  const router = useRouter();
+function _App ({ id, data, templates }) {
+  const [isComponentVisible, setComponentVisible] = useState(true);
+  const [state, setState] = useState ("");
+  const [value, setValue] = useState ("");
+
+  const toggleComponentVisibility = () => {
+    setComponentVisible(!isComponentVisible);
+  };
+
+  useEffect(() => {
+    setValue(Template (state, "Google", templates));
+  }, [state]);
 
   return (
-    <SurveyComp id={id} data={data} router={router} />
-  )
+    <div className="note-editor">
+      <div className="survey-component">
+        <SurveyComp
+        id={id}
+        data={data}
+        templates={templates}
+        setState={setState}
+        />
+      </div>
+      {isComponentVisible && (
+        <div className="component">
+          <QuillComp
+          initialContent={"data"}
+          value={value}
+          setValue={setValue}
+          />
+        </div>
+      )}
+      <button className="toggle-button" onClick={toggleComponentVisibility}>
+        {isComponentVisible ? 'Hide Preview' : 'Show Preview'}
+      </button>
+    </div>
+  );
 }
 
 const SurveyComp = React.memo (SurveyComponent);
+
+function Quill ({initialContent, value, setValue})
+{
+  return (
+    <QuillEditor
+    initialContent={initialContent}
+    value={value}
+    setValue={setValue}
+    />
+  );
+}
+const QuillComp = React.memo (Quill);
 
 export default _App;
 
@@ -177,7 +208,7 @@ function fetchTemplate(name, templates) {
     return null;
 }
 
-function Template (survey, name, templates) {
+function Template (surveyData, name, templates) {
     const template = fetchTemplate (name, templates);
     
     if (!template) {
@@ -187,7 +218,7 @@ function Template (survey, name, templates) {
     let fields = template.fields;
     let str = template.html;
 
-    for (const [key, value] of Object.entries(survey.data)) {
+    for (const [key, value] of Object.entries(surveyData)) {
         if ("{" + key + "}" in fields) {
             fields["{" + key + "}"] = value;
         }
