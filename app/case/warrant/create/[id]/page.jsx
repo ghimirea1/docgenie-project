@@ -11,20 +11,21 @@ const fetchSingleCase = async (id) => {
   return res;
 };
 
+const fetchTemplates = async () => {
+  const res = await prisma.template.findMany({});
+  return res;
+};
+
 const CaseEditPage = async ({ params: { id } }) => {
   const { caseId = id, title, body, createdAt, data } = await fetchSingleCase(id);
+  const templates = await fetchTemplates();
 
   return (
-    <div id="float-parent" className="grid-container">
-      <div id="survey-element" className="grid-child">
-        <SurveyComponent
-        id={id}
-        data={data}
-        />
-      </div>
-      <div id="pdf-preview" className="grid-child">
-      </div>
-    </div>
+  <SurveyComponent
+  id={id}
+  data={data}
+  templates={templates}
+  />
   );
 };
 
