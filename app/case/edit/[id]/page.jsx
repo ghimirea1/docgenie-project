@@ -11,15 +11,15 @@ const fetchSingleCase = async (id) => {
 };
 
 const CaseEditPage = async ({ params: { id } }) => {
-    const { caseId = id, title, body, createdAt, data } = await fetchSingleCase(id);
-
-    return (
-      <SurveyComponent
-      id={id}
-      data={data}
-      />
-    );
-  };
+  const { caseId = id, title, body, createdAt, data } = await fetchSingleCase(id);
   
-  export default CaseEditPage;
+  return (
+  <SurveyComponent
+  id={id}
+  data={data}
+  />
+  );
+};
+  
+export default CaseEditPage;
   
