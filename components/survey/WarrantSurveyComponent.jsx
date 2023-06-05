@@ -1,6 +1,5 @@
 'use client'
-import React, { useState, useEffect, startTransition, useRef } from "react";
-import ReactDOM from "react-dom/client" 
+import React, { useState, useEffect, startTransition } from "react";
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import $ from "jquery";
@@ -8,7 +7,6 @@ import * as SurveyCore from "survey-core";
 import { jqueryuidatepicker } from "surveyjs-widgets";
 import "jquery-ui-dist/jquery-ui.css";
 import "survey-core/defaultV2.min.css";
-// import "./index.css";
 import { json } from "./casejson2";
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/navigation";
@@ -27,54 +25,59 @@ const QuillEditor = dynamic(
     { ssr: false }
 )
 
-async function updateCase (id, data, router) {
-    try {
-        const res = await fetch('/api/case', {
-          method: 'POST',
-          body: JSON.stringify({
-            id: id,
-            data
-          }),
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-          },
-        });
-  
-        startTransition(() => {
-          router.replace("/");
-          router.refresh();
-        });
+async function updateWarrant (id, caseId, data, value, router) {
+  try {
+      const res = await fetch('/api/case/warrant', {
+        method: 'POST',
+        body: JSON.stringify({
+          id: id,
+          caseId: caseId,
+          data: data,
+          html: value
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+
+      startTransition(() => {
+        router.replace("/");
+        router.refresh();
+      });
+    
+    } catch (error)
+    {
+      console.log (error);
+    }
+  }
+    
+async function saveWarrant (id, caseId, data, value, router) {
+  try {
+      const res = await fetch('/api/case/warrant', {
+        method: 'PUT',
+        body: JSON.stringify({
+          id: id,
+          caseId: caseId,
+          data: data,
+          html: value
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+      });
+
+      startTransition(() => {
+        router.replace("/");
+        router.refresh();
+      });
       
-      } catch (error)
-      {
-        console.log (error);
-      }
-  }
-    
-  async function saveCase (data, router) {
-      try {
-          const res = await fetch('/api/case', {
-            method: 'PUT',
-            body: JSON.stringify({
-              data
-            }),
-            headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json',
-            },
-          });
-    
-          startTransition(() => {
-            router.replace("/");
-            router.refresh();
-          });
-          
-        } catch (error)
-        {
-          console.log (error);
-        }
-  }
+    } catch (error)
+    {
+      console.log (error);
+    }
+}
 
 const fetchTemplates = async () => {
     try {
@@ -90,11 +93,11 @@ const fetchTemplates = async () => {
     }
   }
 
-const SurveyComponent = ({ id, data, templates, setState }) => {
+const SurveyComponent = ({ id, data, templates, setState, onComplete }) => {
     // const templates = await fetchTemplates();    
     const router = useRouter();
     const survey = new Model(json);
-    
+
     // Avoid rehydration conflict
     // https://nextjs.org/docs/messages/react-hydration-error
     const [hasMounted, setHasMounted] = useState(false);
@@ -119,12 +122,6 @@ const SurveyComponent = ({ id, data, templates, setState }) => {
 
     survey.onComplete.add((sender, options) => {
       console.log(JSON.stringify(sender.data, null, 3));
-      if (data) {
-        updateCase (id, sender.data, router);
-      }
-      else {
-        saveCase (sender.data, router);
-      }
     });
     survey.onCurrentPageChanged.add((sender, options) => {
       console.log(JSON.stringify(sender.data, null, 3));
@@ -139,10 +136,11 @@ const SurveyComponent = ({ id, data, templates, setState }) => {
     );
 }
 
-function _App ({ id, data, templates }) {
+const _App = ({ id, caseId, data, templates, warrant }) => {
   const [isComponentVisible, setComponentVisible] = useState(true);
   const [state, setState] = useState ("");
-  const [value, setValue] = useState ("");
+  const [value, setValue] = useState (warrant);
+  const router = useRouter();
 
   const toggleComponentVisibility = () => {
     setComponentVisible(!isComponentVisible);
@@ -163,9 +161,14 @@ function _App ({ id, data, templates }) {
         />
       </div>
       {isComponentVisible && (
-        <div className="component">
-          <QuillComp
-          initialContent={"data"}
+        <div className="component note-editor-preview">
+          <button
+            className="edit-button edit-button--solid"
+            onClick={() => id ? updateWarrant (id, caseId, state, value, router) : saveWarrant (id, caseId, state, value, router)}>
+            Save Warrant
+          </button>
+          <Quill
+          initialContent={""}
           value={value}
           setValue={setValue}
           />
@@ -180,8 +183,7 @@ function _App ({ id, data, templates }) {
 
 const SurveyComp = React.memo (SurveyComponent);
 
-function Quill ({initialContent, value, setValue})
-{
+const Quill = ({initialContent, value, setValue}) => {
   return (
     <QuillEditor
     initialContent={initialContent}
@@ -190,7 +192,6 @@ function Quill ({initialContent, value, setValue})
     />
   );
 }
-const QuillComp = React.memo (Quill);
 
 export default _App;
 
