@@ -10,14 +10,26 @@ const fetchSingleCase = async (id) => {
   return res;
 };
 
+const fetchWarrant = async (id) => {
+  const res = await prisma.warrant.findMany({
+    where: { caseId: parseInt (id) },
+  });
+
+  return res;
+};
+
 const CaseEditPage = async ({ params: { id } }) => {
-  const { caseId = id, title, body, createdAt, data } = await fetchSingleCase(id);
+  const caseData = await fetchSingleCase(id);
+  const warrants = await fetchWarrant(id);
   
   return (
-  <SurveyComponent
-  id={id}
-  data={data}
-  />
+    <div className="note-editor">
+      <SurveyComponent
+      id={id}
+      caseData={caseData}
+      warrants={warrants}
+      />
+    </div>
   );
 };
   
