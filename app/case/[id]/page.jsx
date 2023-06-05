@@ -1,7 +1,4 @@
-import { format } from "date-fns";
 import CasePreview from "@/components/case/CasePreview";
-import DeleteButton from "@/components/case/DeleteButton";
-import EditButton from "@/components/case/EditButton";
 import prisma from "@/lib/prisma"
 
 const fetchSingleCase = async (id) => {
@@ -12,28 +9,25 @@ const fetchSingleCase = async (id) => {
   return res;
 };
 
-const CasePage = async ({ params: { id } }) => {
-  const { id: caseId, title, body, created_at, data } = await fetchSingleCase(id);
+const fetchWarrant = async (id) => {
+  const res = await prisma.warrant.findMany({
+    where: { caseId: parseInt (id) },
+  });
 
-  const updatedAtDate = new Date(created_at);
+  return res;
+};
+
+const CasePage = async ({ params: { id } }) => {
+  const caseData = await fetchSingleCase(id);
+  const warrants = await fetchWarrant(id);
 
   return (
     <div className="note-viewer">
-      <div className="note">
-        <div className="note-header">
-          <div className="note-menu" role="menubar">
-            <small className="note-updated-at" role="status">
-              Last updated on {format(updatedAtDate, "M/d/yy 'at' h:mm bb")}
-            </small>
-            <div>
-              <EditButton caseId={id}>Edit</EditButton>
-              <DeleteButton id={caseId} />
-            </div>
-          </div>
-          <h1 className="note-title">{title}</h1>
-        </div>
-        <CasePreview jsonData={data} />
-      </div>
+      <CasePreview 
+      caseData={caseData}
+      jsonData={caseData.data}
+      warrants={warrants}
+      />
     </div>
   );
 };
