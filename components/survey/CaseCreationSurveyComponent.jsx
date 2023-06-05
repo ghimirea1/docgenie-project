@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, useEffect, startTransition } from "react";
-import ReactDOM from "react-dom/client" 
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import $ from "jquery";
@@ -13,6 +12,7 @@ import { json } from "./casejson2";
 import CasePreview from "@/components/case/CasePreview";
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/navigation";
+import WarrantList from "@/components/case/WarrantList";
 
 window["$"] = window["jQuery"] = $;
 require("jquery-ui-dist/jquery-ui.js");
@@ -94,7 +94,6 @@ async function saveCase (data, router) {
 const SurveyComponent = ({ id, data, setState }) => {
     const router = useRouter();
     const survey = new Model(json);
-    // const [survey, setSurvey] = useState({});
 
     // Avoid rehydration conflict
     // https://nextjs.org/docs/messages/react-hydration-error
@@ -143,8 +142,9 @@ const SurveyComponent = ({ id, data, setState }) => {
     );
 }
 
-function _App ({ id, data }) {
+function _App ({ id, caseData, warrants }) {
   const [isComponentVisible, setComponentVisible] = useState(true);
+  const [isWarrantsVisible, setWarrantsVisible] = useState(false);
   const [state, setState] = useState("");
 
   const toggleComponentVisibility = () => {
@@ -152,31 +152,38 @@ function _App ({ id, data }) {
   };
 
   return (
-    <div className="note-editor">
+    <>
       <div id="survey-element">
-      <SurveyComp
-      id={id}
-      data={data}
-      setState={setState} />
-    </div>
-    {isComponentVisible && (
-      <div className="note-editor-preview">
-        <div className="label label--preview" role="status">
-          Preview
-        </div>
-        <h1 className="note-title">{state.name}</h1>
-        <CasePreview jsonData={state} />
+        <SurveyComp
+        id={id}
+        data={caseData.data}
+        setState={setState} />
       </div>
-    )}
-      <button className="toggle-button" onClick={toggleComponentVisibility}>
+      {isComponentVisible && (
+        <div className="note-editor-preview">
+          <CasePreview 
+          caseData={caseData}
+          jsonData={state}
+          warrants={warrants}
+          />
+      </div>
+      )}
+      {isWarrantsVisible && (
+        <div className="note-editor-preview">
+          <div className="label label--preview" role="status">
+            Warrants
+          </div>
+          <WarrantList warrants={warrants} />
+        </div>
+      )}
+      <div className="toggle-button">
+      <button className="" onClick={toggleComponentVisibility}>
         {isComponentVisible ? 'Hide Preview' : 'Show Preview'}
       </button>
-    </div>
+      </div>
+    </>
   );
 }
 
 const SurveyComp = React.memo (SurveyComponent);
 export default _App;
-// export default SurveyComponent;
-
-
