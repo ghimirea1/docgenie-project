@@ -560,41 +560,57 @@ ul.notes-list {
     padding: 20px;
     border-radius: 5px;
     margin-bottom: 20px;
-  }
-  
-  .json-preview h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .json-table {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .json-row {
-    display: flex;
-  }
-  
-  .json-field {
-    font-weight: bold;
-    background-color: white;
-    padding: 8px;
-    border-radius: 5px 5px 0 0;
-  }
-  
-  .json-value {
-    padding: 8px;
-    /* border: 1px solid #ccc; */
-    /* border-top: none; */
-    /* border-radius: 0 0 5px 5px; */
-  }
-  
-  .array-item {
-    padding: 4px 8px; /* Adjust the padding as needed */
-  }
-  
+}
+
+.json-preview h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.json-table {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.json-row {
+  display: flex;
+}
+
+.json-field {
+  font-weight: bold;
+  background-color: white;
+  padding: 8px;
+  border-radius: 5px 5px 0 0;
+}
+
+.json-value {
+  padding: 8px;
+  /* border: 1px solid #ccc; */
+  /* border-top: none; */
+  /* border-radius: 0 0 5px 5px; */
+}
+
+.array-item {
+  padding: 4px 8px; /* Adjust the padding as needed */
+}
+
+/* Warrant Preview */
+/* Styling for the Warrant component */
+.warrant {
+  background: var(--white);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1), 0px 0px 1px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+/* Styling for the title within the Warrant component */
+.warrant-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
 
 /* Case Editor */
 
