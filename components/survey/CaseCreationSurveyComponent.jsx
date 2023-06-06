@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useEffect, startTransition } from "react";
+import React, { useState, useEffect, startTransition, use } from "react";
 import { Model } from "survey-core";
 import { Survey } from "survey-react-ui";
 import $ from "jquery";
@@ -13,6 +13,7 @@ import CasePreview from "@/components/case/CasePreview";
 import dynamic from 'next/dynamic'
 import { useRouter } from "next/navigation";
 import WarrantList from "@/components/case/WarrantList";
+import { useSession } from "next-auth/react";
 
 window["$"] = window["jQuery"] = $;
 require("jquery-ui-dist/jquery-ui.js");
@@ -67,11 +68,12 @@ async function updateCase (id, data, router) {
     }
 }
   
-async function saveCase (data, router) {
+async function saveCase (data, session, router) {
     try {
         const res = await fetch('/api/case', {
           method: 'PUT',
           body: JSON.stringify({
+            user_id: session.data.user.id,
             data
           }),
           headers: {
@@ -91,7 +93,7 @@ async function saveCase (data, router) {
       }
 }
 
-const SurveyComponent = ({ id, data, setState }) => {
+const SurveyComponent = ({ id, data, setState, session }) => {
     const router = useRouter();
     const survey = new Model(json);
 
@@ -126,7 +128,7 @@ const SurveyComponent = ({ id, data, setState }) => {
         updateCase (id, sender.data, router);
       }
       else {
-        saveCase (sender.data, router);
+        saveCase (sender.data, session, router);
       }
     });
     survey.onCurrentPageChanged.add((sender, options) => {
@@ -144,20 +146,23 @@ const SurveyComponent = ({ id, data, setState }) => {
 
 function _App ({ id, caseData, warrants }) {
   const [isComponentVisible, setComponentVisible] = useState(true);
-  const [isWarrantsVisible, setWarrantsVisible] = useState(false);
   const [state, setState] = useState("");
 
   const toggleComponentVisibility = () => {
     setComponentVisible(!isComponentVisible);
   };
 
+  const session = useSession();
+
   return (
     <>
       <div id="survey-element">
         <SurveyComp
-        id={id}
-        data={caseData.data}
-        setState={setState} />
+        id={id? id : null}
+        data={caseData? caseData.data : null}
+        setState={setState}
+        session={session}
+      />
       </div>
       {isComponentVisible && (
         <div className="note-editor-preview">
@@ -167,14 +172,6 @@ function _App ({ id, caseData, warrants }) {
           warrants={warrants}
           />
       </div>
-      )}
-      {isWarrantsVisible && (
-        <div className="note-editor-preview">
-          <div className="label label--preview" role="status">
-            Warrants
-          </div>
-          <WarrantList warrants={warrants} />
-        </div>
       )}
       <div className="toggle-button">
       <button className="" onClick={toggleComponentVisibility}>
