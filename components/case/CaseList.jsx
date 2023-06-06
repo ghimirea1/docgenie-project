@@ -7,7 +7,11 @@ const fetchAllCases = async () => {
     const session = await getServerSession(authOptions);
 
     if (!session) {
-      const res = await prisma.case.findMany({});
+      const res = await prisma.case.findMany({
+        where: {
+          user_id: null
+        }
+      });
       return res;
     }
     else {
