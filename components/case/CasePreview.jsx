@@ -30,7 +30,7 @@ const CasePreview = ({ caseData, jsonData, warrants }) => {
               Last updated on {format(updatedAtDate, "M/d/yy 'at' h:mm bb")}
             </small>
             <div>
-              <button className="" onClick={toggleWarrantsVisibility}>
+              <button className="edit-button edit-button--outline" onClick={toggleWarrantsVisibility}>
                 {isWarrantsVisible ? 'Hide Warrants' : 'Show Warrants'}
               </button>
               <EditButton caseId={caseData.id}>Edit</EditButton>
@@ -65,10 +65,11 @@ const CasePreview = ({ caseData, jsonData, warrants }) => {
         </div>
       </div>
       {isWarrantsVisible && (
-        <div className="note-editor-preview">
-          <div className="label label--preview" role="status">
+        <div className="warrant">
+          {/* <div className="label label--preview" role="status"> */}
+          <h2 className="warrant-title">
             Warrants
-          </div>
+          </h2>
           <WarrantList warrants={warrants} />
         </div>
       )}
