@@ -4,9 +4,12 @@ const SurveyComponent = dynamic(() => import('@/components/survey/CaseCreationSu
 
 const CaseCreatePage = () => {
   return (
-    <SurveyComponent 
-    id={null}
-    data={null} />
+    <div className="note-editor">
+      <SurveyComponent 
+      id={null}
+      data={null}
+      />
+    </div>
   )
 }
 
