@@ -174,7 +174,7 @@ function _App ({ id, caseData, warrants }) {
       </div>
       )}
       <div className="toggle-button">
-      <button className="" onClick={toggleComponentVisibility}>
+      <button className="edit-button edit-button--outline" onClick={toggleComponentVisibility}>
         {isComponentVisible ? 'Hide Preview' : 'Show Preview'}
       </button>
       </div>
