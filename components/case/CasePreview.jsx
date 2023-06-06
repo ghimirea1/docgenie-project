@@ -7,7 +7,13 @@ import WarrantList from "@/components/case/WarrantList";
 
 const CasePreview = ({ caseData, jsonData, warrants }) => {
   const fieldOrder = ['Case Number', 'Officer Name', 'Officer Title', 'Agency', 'Case Type', 'Case Status', 'Case Description', 'State', 'County', 'Location']; // Define the desired order of fields
-  const updatedAtDate = new Date(caseData.created_at);
+  let updatedAtDate;
+  if (caseData) {
+    updatedAtDate = new Date(caseData.created_at);
+  }
+  else {
+    updatedAtDate = new Date();
+  }
   
   const [isWarrantsVisible, setWarrantsVisible] = useState(false);
 
@@ -18,18 +24,20 @@ const CasePreview = ({ caseData, jsonData, warrants }) => {
   return (
     <div className="note">
       <div className="note-header">
-        <div className="note-menu" role="menubar">
-          <small className="note-updated-at" role="status">
-            Last updated on {format(updatedAtDate, "M/d/yy 'at' h:mm bb")}
-          </small>
-          <div>
-            <button className="" onClick={toggleWarrantsVisibility}>
-              {isWarrantsVisible ? 'Hide Warrants' : 'Show Warrants'}
-            </button>
-            <EditButton caseId={caseData.id}>Edit</EditButton>
-            <DeleteButton id={caseData.id} />
+        {caseData && (
+          <div className="note-menu" role="menubar">
+            <small className="note-updated-at" role="status">
+              Last updated on {format(updatedAtDate, "M/d/yy 'at' h:mm bb")}
+            </small>
+            <div>
+              <button className="" onClick={toggleWarrantsVisibility}>
+                {isWarrantsVisible ? 'Hide Warrants' : 'Show Warrants'}
+              </button>
+              <EditButton caseId={caseData.id}>Edit</EditButton>
+              <DeleteButton id={caseData.id} />
+            </div>
           </div>
-        </div>
+          )}
           <h1 className="note-title">{jsonData.name}</h1>
       </div>
       <div className="json-preview">
