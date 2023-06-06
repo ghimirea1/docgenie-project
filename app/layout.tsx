@@ -18,6 +18,7 @@ import CaseList from "@/components/case/CaseList";
 import CaseListSkeleton from "@/components/case/CaseListSkeleton";
 import EditButton from "@/components/case/EditButton";
 import "./globals.css";
+import { NextAuthProvider } from "./providers";
 
 const CaseListComponent = CaseList as unknown as () => JSX.Element;
 
@@ -63,7 +64,9 @@ export default async function RootLayout({
               </Suspense>
             </nav>
           </section>
-          <section className="content">{children}</section>
+          <NextAuthProvider>
+            <section className="content">{children}</section>
+          </NextAuthProvider>
           </div>
       </body>
     </html>
