@@ -174,7 +174,7 @@ const _App = ({ id, caseId, data, templates, warrant }) => {
           />
         </div>
       )}
-      <button className="toggle-button" onClick={toggleComponentVisibility}>
+      <button className="toggle-button edit-button edit-button--outline" onClick={toggleComponentVisibility}>
         {isComponentVisible ? 'Hide Preview' : 'Show Preview'}
       </button>
     </div>
