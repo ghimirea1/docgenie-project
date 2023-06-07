@@ -33,7 +33,9 @@ const CasePreview = ({ caseData, jsonData, warrants }) => {
               <button className="edit-button edit-button--outline" onClick={toggleWarrantsVisibility}>
                 {isWarrantsVisible ? 'Hide Warrants' : 'Show Warrants'}
               </button>
-              <EditButton caseId={caseData.id}>Edit</EditButton>
+              <div className="p-2">
+                <EditButton caseId={caseData.id}>Edit</EditButton>
+              </div>
               <DeleteButton id={caseData.id} />
             </div>
           </div>
