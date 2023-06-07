@@ -14,6 +14,7 @@ import dynamic from 'next/dynamic'
 import { useRouter } from "next/navigation";
 import WarrantList from "@/components/case/WarrantList";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 window["$"] = window["jQuery"] = $;
 require("jquery-ui-dist/jquery-ui.js");
@@ -115,12 +116,12 @@ const SurveyComponent = ({ id, data, setState, session }) => {
 
     survey.navigationBar.getActionById("sv-nav-complete").visible = true;
 
-    survey.addNavigationItem({
-      id: "survey-generate-warrant", title: "Generate Warrant", action:()=>{
-        router.replace(`/case/warrant/create/${id}`);
-        router.refresh();
-      }
-    });
+    // survey.addNavigationItem({
+    //   id: "survey-generate-warrant", title: "Generate Warrant", action:()=>{
+    //     router.replace(`/case/warrant/create/${id}`);
+    //     router.refresh();
+    //   }
+    // });
 
     survey.onComplete.add((sender, options) => {
       console.log(JSON.stringify(sender.data, null, 3));
@@ -171,9 +172,14 @@ function _App ({ id, caseData, warrants }) {
           jsonData={state}
           warrants={warrants}
           />
-      </div>
+        </div>
       )}
-      <div className="toggle-button">
+      <div className="toggle-button flex justify-between">
+        <div className="">
+          <Link href={`/case/warrant/create/${id}`}>
+            <button className="edit-button edit-button--solid">Generate Warrant</button>
+          </Link>
+        </div>
       <button className="edit-button edit-button--outline" onClick={toggleComponentVisibility}>
         {isComponentVisible ? 'Hide Preview' : 'Show Preview'}
       </button>
