@@ -35,12 +35,6 @@ const SignInModal = ({
           </a>
           </div>
           <h3 className="">Sign In</h3>
-          <p className="">
-            This is strictly for demo purposes - only your email and profile
-            picture will be stored.
-          </p>
-        
-
         <div className="">
           <button
             disabled={signInClicked}
