@@ -20,7 +20,7 @@ function Hero({session}: {session: Session | null}) {
     const scrolled = useScroll(50);
   return (
     <div>
-        <div className='border border-red-500 rounded-full h-[200px] w-[200px]'/>
+        <div className='border border-red-500 rounded-full h-[260px] w-[200px]'/>
         <h1 className='text-8xl flex justify-center'>
         <Image
                 src="/docg.png"
@@ -30,7 +30,7 @@ function Hero({session}: {session: Session | null}) {
         ></Image>
             <span>{text}</span>
         </h1>
-        <div className='border border-red-500 rounded-full h-[200px] w-[200px]'/>
+        <div className='border border-red-500 rounded-full h-[50px] w-[200px]'/>
         <div className='justify-center flex'>
             {session ? (
               <UserDropdown session={session} />
