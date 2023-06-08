@@ -17,17 +17,11 @@ const CaseListComponent = CaseList as unknown as () => JSX.Element;
 export default async function Layout ({children}: {children: React.ReactNode;}) {
   return (
     <>
+      {/* @ts-expect-error Server Component */}
+      <Nav />
       <div className="containerr">
         <section className="col sidebar">
           <section className="sidebar-header">
-            {/* <img
-              className="logo"
-              src="/icons/svg/logo.svg"
-              width="22px"
-              height="20px"
-              alt=""
-              role="presentation"
-            /> */}
             <strong>My Cases</strong>
           </section>
           <section className="sidebar-menu" role="menubar">
