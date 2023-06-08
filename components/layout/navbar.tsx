@@ -24,11 +24,11 @@ export default function NavBar({ session }: { session: Session | null }) {
         <div className="mx-5 flex pl-10 pr-10 pt-3 items-center justify-between xl:mx-auto">
           <Link href="/" className="flex items-center font-display text-2xl">
             <Image
-              src="/docgenie.png"
+              src="/docg.png"
               alt="logo"
-              width="30"
-              height="30"
-              className="mr-2 rounded-sm"
+              width="60"
+              height="60"
+              className="mr-2"
             ></Image>
             <p>DocGenie</p>
           </Link>

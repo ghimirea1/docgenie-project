@@ -25,9 +25,9 @@ const SignInModal = ({
       <div className="flex flex-col content-center flex items-center align-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
 
           <div>
-          <a href="https://precedent.dev">
+          <a href="/">
             <Image
-              src="/logo.png"
+              src="/docg.png"
               alt="Logo"
               className="h-10 w-10 rounded-full"
               width={20}

@@ -1,12 +1,11 @@
-import Card from "@/components/home/card";
-import Balancer from "react-wrap-balancer";
-import { DEPLOY_URL } from "@/lib/constants";
-import { Github, Twitter } from "@/components/shared/icons";
-import WebVitals from "@/components/home/web-vitals";
-import ComponentGrid from "@/components/home/component-grid";
-import Image from "next/image";
-import { nFormatter } from "@/lib/utils";
+import Hero from "@/app/Hero";
+import Nav from './nav'
 
 export default async function Home() {
+    return (
+        <div className='bg-[rgb(36,36,36)] text-white h-screen snap-y snap-mandatory z-0'>
+            <Nav/>
+        </div>
+        )
 }
 
