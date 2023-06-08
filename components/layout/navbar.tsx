@@ -5,7 +5,6 @@ import useScroll from "@/lib/hooks/use-scroll";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
 import { Session } from "next-auth";
-import "./styles.css";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const { SignInModal, setShowSignInModal } = useSignInModal();
@@ -15,11 +14,11 @@ export default function NavBar({ session }: { session: Session | null }) {
     <>
       <SignInModal />
       <div
-        className={`fixed top-0 h-15 navbar w-full ${
+        className={`fixed top-0 w-full ${
           scrolled
             ? "border-b border-gray-200 bg-white backdrop-blur-xl"
             : "bg-white"
-        } z-1 transition-all`}
+        } z-30 transition-all`}
       >
         <div className="mx-5 flex pl-10 pr-10 pt-3 items-center justify-between xl:mx-auto">
           <Link href="/" className="flex items-center font-display text-2xl no-underline">
