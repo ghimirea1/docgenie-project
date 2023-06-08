@@ -27,6 +27,7 @@ const CasePage = async ({ params: { id } }) => {
       caseData={caseData}
       jsonData={caseData.data}
       warrants={warrants}
+      showEdit={true}
       />
     </div>
   );
