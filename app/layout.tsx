@@ -28,12 +28,6 @@ export default async function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-      <div className="navbar">
-        <Suspense fallback="...">
-          {/* @ts-expect-error Server Component */}
-          <Nav />
-        </Suspense>
-        </div>
         <NextAuthProvider>
           {children}
         </NextAuthProvider>
