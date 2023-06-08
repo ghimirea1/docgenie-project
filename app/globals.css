@@ -273,6 +273,24 @@ html, body {
   margin-inline-end: 10px;
 }
 
+.back-button {
+  position: fixed;
+  top: 70px;
+  left: 30px;
+  padding: 6px 20px 8px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 20px 8px;
+  cursor: pointer;
+  font-weight: 700;
+  outline-style: none;
+  line-height: 1.2;
+}
+
 .edit-button,
 .delete-button {
   border-radius: 100px;
@@ -541,7 +559,7 @@ ul.notes-list {
 .toggle-button {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 30px;
 }
 
 .visible {
