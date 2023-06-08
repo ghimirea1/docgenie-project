@@ -9,6 +9,7 @@ import {
 } from "react";
 import { LoadingDots, Google } from "@/components/shared/icons";
 import Image from "next/image";
+import "./styles.css";
 
 const SignInModal = ({
   showSignInModal,
@@ -25,7 +26,7 @@ const SignInModal = ({
 
           <div>
             <Image
-              src="/docgenie.png"
+              src="/logo.png"
               alt="Logo"
               className="h-10 w-10 rounded-full"
               width={20}
@@ -33,6 +34,12 @@ const SignInModal = ({
             />
           </div>
           <h3 className="">Sign In</h3>
+          <p className="">
+            This is strictly for demo purposes - only your email and profile
+            picture will be stored.
+          </p>
+        
+
         <div className="">
           <button
             disabled={signInClicked}
@@ -43,7 +50,9 @@ const SignInModal = ({
           } flex h-10  items-center text-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
           onClick={() => {
               setSignInClicked(true);
-              signIn("google");
+              signIn("google", {
+                callbackUrl: "/case"
+              });
             }}
           >
             {signInClicked ? (
