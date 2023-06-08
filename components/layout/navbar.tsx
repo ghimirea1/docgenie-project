@@ -21,7 +21,7 @@ export default function NavBar({ session }: { session: Session | null }) {
         } z-30 transition-all`}
       >
         <div className="mx-5 flex pl-10 pr-10 pt-3 items-center justify-between xl:mx-auto">
-          <Link href="/" className="flex items-center font-display text-2xl no-underline">
+          <Link href="/case" className="flex items-center font-display text-2xl no-underline">
             <Image
               src="/docgenie.png"
               alt="logo"
