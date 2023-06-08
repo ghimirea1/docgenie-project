@@ -5,7 +5,7 @@ import EditButton from "@/components/case/EditButton";
 import DeleteButton from "@/components/case/DeleteButton";
 import WarrantList from "@/components/case/WarrantList";
 
-const CasePreview = ({ caseData, jsonData, warrants }) => {
+const CasePreview = ({ caseData, jsonData, warrants, showEdit }) => {
   const fieldOrder = ['Case Number', 'Officer Name', 'Officer Title', 'Agency', 'Case Type', 'Case Status', 'Case Description', 'State', 'County', 'Location']; // Define the desired order of fields
   let updatedAtDate;
   if (caseData) {
@@ -29,13 +29,17 @@ const CasePreview = ({ caseData, jsonData, warrants }) => {
             <small className="note-updated-at" role="status">
               Last updated on {format(updatedAtDate, "M/d/yy 'at' h:mm bb")}
             </small>
-            <div>
+            <div className="flex justify-between">
               <button className="edit-button edit-button--outline" onClick={toggleWarrantsVisibility}>
                 {isWarrantsVisible ? 'Hide Warrants' : 'Show Warrants'}
               </button>
-              <div className="p-2">
-                <EditButton caseId={caseData.id}>Edit</EditButton>
-              </div>
+              {showEdit && (
+                <>
+                <EditButton caseId={caseData.id}>
+                  Edit
+                </EditButton>
+                </>
+              )}
               <DeleteButton id={caseData.id} />
             </div>
           </div>
