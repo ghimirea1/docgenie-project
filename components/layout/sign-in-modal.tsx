@@ -9,7 +9,6 @@ import {
 } from "react";
 import { LoadingDots, Google } from "@/components/shared/icons";
 import Image from "next/image";
-import "./styles.css";
 
 const SignInModal = ({
   showSignInModal,
