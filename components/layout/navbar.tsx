@@ -20,7 +20,7 @@ export default function NavBar({ session }: { session: Session | null }) {
             : "bg-white"
         } z-30 transition-all`}
       >
-        <div className="mx-5 flex pl-10 pr-10 pt-3 items-center justify-between xl:mx-auto">
+        <div className="mx-5 flex pl-10 pr-10 pt-3 pb-3 items-center justify-between xl:mx-auto">
           <Link href="/case" className="flex items-center font-display text-2xl no-underline">
             <Image
               src="/docgenie.png"
@@ -29,7 +29,7 @@ export default function NavBar({ session }: { session: Session | null }) {
               height="30"
               className="mr-2 rounded-sm"
             ></Image>
-            <p>DocGenie</p>
+            <p className="logo-text">DocGenie</p>
           </Link>
           <div>
             {session ? (
