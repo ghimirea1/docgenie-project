@@ -210,6 +210,13 @@ html, body {
   padding: 0;
 }
 
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--primary-blue);
+  margin: 0;
+}
+
 .containerr {
   display: flex;
   position: fixed;
@@ -367,16 +374,17 @@ ul.notes-list {
   position: relative;
 }
 .sidebar-header {
-  letter-spacing: 0.15em;
+  letter-spacing: 0.12em;
+  font-size: large;
   text-transform: uppercase;
-  padding: 36px 16px 16px;
+  padding: 36px 36px 16px;
   display: flex;
-  align-items: center;  
+  /* justify-content: center; */
 }
 .sidebar-menu {
   padding: 0 16px 16px;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: center; */
 }
 .sidebar-menu > .search {
   position: relative;
