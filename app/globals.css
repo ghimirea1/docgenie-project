@@ -298,6 +298,14 @@ html, body {
   line-height: 1.2;
 }
 
+.action-container {
+  padding: 5px;
+}
+
+.save-warrant-button {
+  padding: 5px;
+}
+
 .edit-button,
 .delete-button {
   border-radius: 100px;
