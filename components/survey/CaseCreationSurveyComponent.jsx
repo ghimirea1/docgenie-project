@@ -59,7 +59,7 @@ async function updateCase (id, data, router) {
       });
 
       startTransition(() => {
-        router.replace("/");
+        router.replace("/case");
         router.refresh();
       });
     
@@ -84,7 +84,7 @@ async function saveCase (data, session, router) {
         });
   
         startTransition(() => {
-          router.replace("/");
+          router.replace("/case");
           router.refresh();
         });
         
@@ -153,6 +153,7 @@ function _App ({ id, caseData, warrants }) {
     setComponentVisible(!isComponentVisible);
   };
 
+  const router = useRouter();
   const session = useSession();
 
   return (
@@ -175,6 +176,17 @@ function _App ({ id, caseData, warrants }) {
         </div>
       )}
       <div className="toggle-button flex justify-between">
+        <button className="edit-button edit-button--solid"
+        onClick={() => {
+          if (caseData) {
+            updateCase (id, state, router);
+          }
+          else {
+            saveCase (state, session, router);
+          }
+        }}>
+          Save Case
+        </button>
         <div className="">
           <Link href={`/case/warrant/create/${id}`}>
             <button className="edit-button edit-button--solid">Generate Warrant</button>
