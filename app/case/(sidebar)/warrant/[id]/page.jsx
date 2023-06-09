@@ -28,7 +28,7 @@ const WarrantPage = async ({ params: { id } }) => {
               Last updated on {format(updatedAtDate, "M/d/yy 'at' h:mm bb")}
             </small>
             <div>
-              <EditWarrantButton caseId={id}>Edit</EditWarrantButton>
+              <EditWarrantButton caseId={id}>Edit Warrant</EditWarrantButton>
               <DeleteWarrantButton id={caseId} />
             </div>
           </div>
