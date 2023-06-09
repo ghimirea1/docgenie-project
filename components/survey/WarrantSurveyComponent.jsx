@@ -114,7 +114,7 @@ const SurveyComponent = ({ id, data, templates, setState, onComplete }) => {
         survey.data = data;
     }
 
-    survey.navigationBar.getActionById("sv-nav-complete").visible = true;
+    survey.navigationBar.getActionById("sv-nav-complete").visible = false;
  
     // survey.addNavigationItem({
     //     id: "survey_pdf_preview", title: "Preview PDF", action: () => {}
