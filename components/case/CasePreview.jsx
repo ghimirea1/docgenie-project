@@ -36,7 +36,7 @@ const CasePreview = ({ caseData, jsonData, warrants, showEdit }) => {
               {showEdit && (
                 <>
                 <EditButton caseId={caseData.id}>
-                  Edit
+                  Edit Case
                 </EditButton>
                 </>
               )}
