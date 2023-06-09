@@ -20,9 +20,9 @@ export default async function Layout ({children}: {children: React.ReactNode;}) 
       {/* @ts-expect-error Server Component */}
       <Nav />
       <div className="containerr">
-        <section className="col sidebar">
+        <section className="flex flex-col sidebar">
           <section className="sidebar-header">
-            <strong>My Cases</strong>
+              <strong>My Cases</strong>
           </section>
           <section className="sidebar-menu" role="menubar">
             <EditButton>Create Case</EditButton>
