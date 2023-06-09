@@ -78,7 +78,8 @@ export const json = {
      {
       "type": "text",
       "name": "Location",
-      "title": "Location"
+      "title": "Location",
+      "hideNumber": true
      },
      {
       "type": "dropdown",
