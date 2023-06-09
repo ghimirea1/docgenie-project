@@ -24,22 +24,18 @@ const SignInModal = ({
     <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
       <div className="flex flex-col content-center flex items-center align-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
 
-          <div>
+          <div className="flex flex-row items-center font-display">
             <Image
-              src="/logo.png"
+              src="/docgenie.png"
               alt="Logo"
               className="h-10 w-10 rounded-full"
               width={20}
               height={20}
             />
+            <p className="logo-text">DocGenie</p>
           </div>
           <h3 className="">Sign In</h3>
-          <p className="">
-            This is strictly for demo purposes - only your email and profile
-            picture will be stored.
-          </p>
-        
-
+          <p className=""></p>
         <div className="">
           <button
             disabled={signInClicked}
