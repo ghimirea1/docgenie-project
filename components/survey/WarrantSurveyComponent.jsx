@@ -42,7 +42,7 @@ async function updateWarrant (id, caseId, data, value, router) {
       });
 
       startTransition(() => {
-        router.replace("/");
+        router.replace("/case");
         router.refresh();
       });
     
@@ -69,7 +69,7 @@ async function saveWarrant (id, caseId, data, value, router) {
       });
 
       startTransition(() => {
-        router.replace("/");
+        router.replace("/case");
         router.refresh();
       });
       
@@ -116,9 +116,9 @@ const SurveyComponent = ({ id, data, templates, setState, onComplete }) => {
 
     survey.navigationBar.getActionById("sv-nav-complete").visible = true;
  
-    survey.addNavigationItem({
-        id: "survey_pdf_preview", title: "Preview PDF", action: () => {}
-    });
+    // survey.addNavigationItem({
+    //     id: "survey_pdf_preview", title: "Preview PDF", action: () => {}
+    // });
 
     survey.onComplete.add((sender, options) => {
       console.log(JSON.stringify(sender.data, null, 3));
@@ -162,11 +162,13 @@ const _App = ({ id, caseId, data, templates, warrant }) => {
       </div>
       {isComponentVisible && (
         <div className="component note-editor-preview">
-          <button
-            className="edit-button edit-button--solid"
-            onClick={() => id ? updateWarrant (id, caseId, state, value, router) : saveWarrant (id, caseId, state, value, router)}>
-            Save Warrant
-          </button>
+          <div className="save-warrant-button">
+            <button
+              className="edit-button edit-button--solid"
+              onClick={() => id ? updateWarrant (id, caseId, state, value, router) : saveWarrant (id, caseId, state, value, router)}>
+              Save Warrant
+            </button>
+          </div>
           <Quill
           initialContent={""}
           value={value}
